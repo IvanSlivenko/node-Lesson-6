@@ -11,19 +11,20 @@ const router = express.Router();
 // маршрут  get "/"
 router.get("/", moviesController.getAllMovies);
 
-// Шукаємо
-router.get("/:id", moviesController.deleteMovieById);
+// // Шукаємо
+// router.get("/:id", moviesController.getMovieById);
 
 // Додаємо 
-router.post("/",validateBody(schemas.movieAddSchema), moviesController.addMovie);
+router.post("/", validateBody(schemas.movieAddSchema), moviesController.addMovie);
+// router.post("/",moviesController.addMovie);
 
-// Змінюємо
-router.put(
-  "/:id", validateBody(schemas.movieAddSchema), moviesController.updateMovieById
-);
+// // Змінюємо
+// router.put(
+//   "/:id", validateBody(schemas.movieAddSchema), moviesController.updateMovieById
+// );
  
-// Видаляємо
-router.delete("/:id", moviesController.deleteMovieById);
+// // Видаляємо
+// router.delete("/:id", moviesController.deleteMovieById);
 
 module.exports = router;
 
