@@ -1,36 +1,38 @@
 // const moviesService = require("../models/movies/index");
 const Movie =require("../models/movie")
-// const { HttpError } = require("../helpers");
+const { HttpError } = require("../helpers");
 const { ctrlWrapper } = require("../decorators");
 // const movieAddSchema = require("../schemas/movies");
 
 const getAllMovies = async (req, res) => {
 
     // const result = await moviesService.getAllMovies();
-    const result = await Movie.find();
+  // Отримуємо всі данні з колекції
+  // const result = await Movie.find({}, "createdAt updatedAt");
+  const result = await Movie.find({}, "-createdAt -updatedAt");
     res.json(result);
  
 }
 
-// const getMovieById=async (req, res) => {
-   
-//         const { id } = req.params;
-//         const result = await moviesService.getMovieById(id);
-
-//       if (!result) {
-//         throw HttpError(404, `Movie with ${id} not found`);
-//         }
+const getMovieById=async (req, res) => {
+  const { id } = req.params;
+  //Шукаємо по одному елементу
+  // const result = await Movie.findOne({ _id: id });
+  //Шукаємо по id
+  const result = await Movie.findById(id);
+        if (!result) {
+        throw HttpError(404, `Movie with ${id} not found`);
+        }
   
-//         res.json(result);
+        res.json(result);
    
-// }
-
+}
+////////////////////////////////////////////
 // const addMovie=async (req, res) => {
-  
 //     const result = await moviesService.addMovie(req.body);
 //     res.status(201).json(result);
-  
 //  }
+//////////////////////////////////////////
 
 const addMovie=async (req, res) => { 
   
@@ -65,7 +67,7 @@ const addMovie=async (req, res) => {
 
 module.exports = {
   getAllMovies: ctrlWrapper(getAllMovies),
-  // getMovieById: ctrlWrapper(getMovieById),
+  getMovieById: ctrlWrapper(getMovieById),
   addMovie: ctrlWrapper(addMovie),
   // updateMovieById:ctrlWrapper(updateMovieById) ,
   // deleteMovieById: ctrlWrapper(deleteMovieById),

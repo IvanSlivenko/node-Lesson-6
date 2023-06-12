@@ -12,7 +12,7 @@ const movieAddSchema = Joi.object({
     "string.empty": `"director" cannot be an empty field`,
   }), // string() - строка, required() - обов'зковий
   favorite: Joi.boolean(),
-  genre: Joi.string().validate(...genreList),
+  genre: Joi.string().valid(...genreList),
   releaseDate: Joi.string().pattern(releaseDateRagexp).required(),
 });
 module.exports = {

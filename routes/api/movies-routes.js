@@ -4,6 +4,7 @@ const moviesController = require('../../controllers/movies-controller');
 
 const schemas = require("../../schemas/movies");
 const { validateBody } = require("../../decorators");
+const { isValidId } = require("../../middlewares");
 
 
 const router = express.Router();
@@ -12,7 +13,7 @@ const router = express.Router();
 router.get("/", moviesController.getAllMovies);
 
 // // Шукаємо
-// router.get("/:id", moviesController.getMovieById);
+router.get("/:id",isValidId, moviesController.getMovieById);
 
 // Додаємо 
 router.post("/", validateBody(schemas.movieAddSchema), moviesController.addMovie);
@@ -20,11 +21,11 @@ router.post("/", validateBody(schemas.movieAddSchema), moviesController.addMovie
 
 // // Змінюємо
 // router.put(
-//   "/:id", validateBody(schemas.movieAddSchema), moviesController.updateMovieById
+//   "/:id", isValidId,validateBody(schemas.movieAddSchema), moviesController.updateMovieById
 // );
  
 // // Видаляємо
-// router.delete("/:id", moviesController.deleteMovieById);
+// router.delete("/:id", isValidId, moviesController.deleteMovieById);
 
 module.exports = router;
 

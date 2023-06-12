@@ -23,9 +23,8 @@ const movieSchema = new Schema({
     },
     genre: {
         type: String,
-        enum:genreList,
+        enum: genreList,
         required: true,
-
     },
     releaseDate: {
         type: String,
